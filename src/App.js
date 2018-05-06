@@ -12,7 +12,12 @@ class App extends Component {
         <KeymapEditor />
         <p style={{clear: 'both'}} id="keycodes-section">
           <label>Keycodes:</label>
-        </p><p className="hint"><a href="https://docs.qmk.fm/keycodes" title="Keycodes reference" target="_blank">Keycodes reference</a></p>
+        </p>
+        <p className="hint">
+          <a href="https://docs.qmk.fm/keycodes" title="Keycodes reference" target="_blank" rel="noopener noreferrer">
+            Keycodes reference
+          </a>
+        </p>
         <div id="keycodes" />
         <p />
       </div>

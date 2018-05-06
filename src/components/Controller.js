@@ -25,7 +25,6 @@ export default class Controller extends Component {
   }
 
   render() {
-    const { currentKeyboard, currentLayout, currentKeymap } = this.state;
     return (
       <div id="controller">
         <div id="controller-top">
