@@ -8,4 +8,8 @@ export default class Api {
   static getKeyboard(name) {
     return fetch(`${API_URL}/keyboards/${name}`).then(r => r.json());
   }
+
+  static getReadme(name) {
+    return fetch(`${API_URL}/keyboards/${name}/readme`).then(r => r.text());
+  }
 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import Api from '../Api';
 import Picker from './Picker';
+import Status from './Status';
 
 export default class Controller extends Component {
   constructor(props) {
@@ -49,7 +50,7 @@ export default class Controller extends Component {
           <button id="compile">Compile</button>
           <button id="load-default">Load Default</button>
         </div>
-        <textarea id="status" readOnly defaultValue={""} />
+        <Status value={this.state.readme} />
         <div id="controller-bottom">
           <button id="hex" disabled>Download .hex</button>
           <button id="toolbox" disabled>Open in QMK Toolbox</button>
@@ -64,6 +65,11 @@ export default class Controller extends Component {
 
   onKeyboardChange(currentKeyboard) {
     this.setState({ currentKeyboard });
+
+    Api.getReadme(currentKeyboard)
+      .then(this.onReadmeLoaded.bind(this))
+      .catch(this.onReadmeLoadError.bind(this));
+
     Api.getKeyboard(currentKeyboard)
       .then(this.onKeyboardLoaded.bind(this))
       .catch(this.onKeyboardLoadError.bind(this));
@@ -106,6 +112,16 @@ export default class Controller extends Component {
 
   onKeyboardLoadError(error) {
     console.error('Error loading keyboard', error);
+    this.setState({ error, loading: false });
+  }
+
+  onReadmeLoaded(res) {
+    console.log('res', res);
+    this.setState({ loading: false, readme: res });
+  }
+
+  onReadmeLoadError(error) {
+    console.error('Error loading readme', error);
     this.setState({ error, loading: false });
   }
 }
