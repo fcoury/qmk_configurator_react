@@ -16,7 +16,6 @@ export default class Picker extends Component {
   }
 
   render() {
-    console.log('this.state.values', this.state.values);
     return (
       <label>
         {this.props.label}:

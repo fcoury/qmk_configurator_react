@@ -76,10 +76,14 @@ export default class Controller extends Component {
   }
 
   onLayoutChange(currentLayout) {
-    this.setState({ currentLayout });
+    this.setState({ currentLayout }, () => {
+      const layout = this.state.keyboard.layouts[this.state.currentLayout].layout;
+      this.props.onLayoutChange && this.props.onLayoutChange(layout);
+    });
   }
 
   onKeymapChange(currentKeymap) {
+    console.log('this.state', this.state);
     this.setState({ currentKeymap });
   }
 
@@ -108,6 +112,8 @@ export default class Controller extends Component {
       currentKeymap,
       loading: false,
     });
+    this.onLayoutChange(currentLayout);
+    this.onKeymapChange(currentKeymap);
   }
 
   onKeyboardLoadError(error) {
@@ -116,7 +122,6 @@ export default class Controller extends Component {
   }
 
   onReadmeLoaded(res) {
-    console.log('res', res);
     this.setState({ loading: false, readme: res });
   }
 
